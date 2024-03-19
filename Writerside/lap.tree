@@ -2,8 +2,8 @@
 <!DOCTYPE instance-profile
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
-<instance-profile id="l"
-                 name="Learn"
+<instance-profile id="lap"
+                 name="Learn About PHP"
                  start-page="learn.md">
 
     <toc-element topic="learn.md">
