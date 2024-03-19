@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="l"
+                 name="Learn"
+                 start-page="learn.md">
+
+    <toc-element topic="learn.md">
+        <toc-element topic="Basic-of-php.md"/>
+        <toc-element topic="Laravel.md"/>
+        <toc-element topic="Filament.md">
+            <toc-element topic="install.md"/>
+            <toc-element topic="Translation-Manager.md"/>
+            <toc-element topic="Permissions.md"/>
+            <toc-element topic="Filament-Setting-Page.md"/>
+            <toc-element topic="Media.md"/>
+            <toc-element topic="Sky-CMS.md"/>
+        </toc-element>
+    </toc-element>
+</instance-profile>
