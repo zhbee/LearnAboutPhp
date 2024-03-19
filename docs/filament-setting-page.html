@@ -1,0 +1,166 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="robots" content="noindex"><meta name="built-on" content="2024-03-20T05:54:16.538347"><title>Setting Page | Learn About PHP</title><script type="application/json" id="virtual-toc-data">[{"id":"installation","level":0,"title":"Installation","anchor":"#installation"},{"id":"preparing-your-page-class","level":0,"title":"Preparing your page class","anchor":"#preparing-your-page-class"},{"id":"building-a-form","level":0,"title":"Building a form","anchor":"#building-a-form"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b224/app.css" rel="stylesheet"><link rel="manifest" href="site.webmanifest"><meta name="msapplication-TileColor" content="#000000"><link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png"><meta name="msapplication-TileImage" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"><meta name="msapplication-square70x70logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"><meta name="msapplication-square150x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"><meta name="msapplication-wide310x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"><meta name="msapplication-square310x310logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="Setting Page | Learn About PHP"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="Learn About PHP Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="writerside-documentation/l/1.0/filament-setting-page.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="Setting Page | Learn About PHP"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "@id": "writerside-documentation/l/1.0/filament-setting-page.html#webpage",
+    "url": "writerside-documentation/l/1.0/filament-setting-page.html",
+    "name": "Setting Page | Learn About PHP",
+    "description": "",
+    "image": "",
+    "inLanguage":"en-US"
+}</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json">{
+    "@type": "WebSite",
+    "@id": "writerside-documentation/l/#website",
+    "url": "writerside-documentation/l/",
+    "name": "Learn About PHP Help"
+}</script><!-- End Schema.org --></head><body data-id="Filament-Setting-Page" data-main-title="Setting Page" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="learn.md|Learn About  PHP///Filament.md|Filament"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Learn About PHP 1.0 Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="Filament-Setting-Page" id="Filament-Setting-Page.md">Setting Page</h1><p id="-kirt3b_4093">first we need to install setting plugin for filament</p><section class="chapter"><h2 id="installation" data-toc="installation">Installation</h2><p id="-kirt3b_4094"><a href="https://github.com/filamentphp/spatie-laravel-settings-plugin?tab=readme-ov-file" id="-kirt3b_4095" data-external="true" rel="noopener noreferrer">spatie-laravel-settings-plugin</a></p><div class="code-block" data-lang="bash">
+composer require filament/spatie-laravel-settings-plugin:&quot;^3.2&quot; -W
+composer require spatie/laravel-settings
+</div><p id="-kirt3b_4097">You can publish and run the migrations with:</p><div class="code-block" data-lang="bash">
+php artisan vendor:publish --provider=&quot;Spatie\LaravelSettings\LaravelSettingsServiceProvider&quot; --tag=&quot;migrations&quot;
+php artisan migrate
+</div><p id="-kirt3b_4099">You can publish the config file with:</p><div class="code-block" data-lang="bash">
+php artisan vendor:publish --provider=&quot;Spatie\LaravelSettings\LaravelSettingsServiceProvider&quot; --tag=&quot;config&quot;
+</div><p id="-kirt3b_4101">This is the contents of the published config file:</p><div class="code-block" data-lang="php">
+return [
+
+    /*
+     * Each settings class used in your application must be registered, you can
+     * add them (manually) here.
+     */
+    'settings' =&gt; [
+
+    ],
+
+    /*
+     * The path where the settings classes will be created.
+     */
+    'setting_class_path' =&gt; app_path('Settings'),
+
+    /*
+     * In these directories settings migrations will be stored and ran when migrating. A settings 
+     * migration created via the make:settings-migration command will be stored in the first path or
+     * a custom defined path when running the command.
+     */
+    'migrations_paths' =&gt; [
+        database_path('settings'),
+    ]
+
+    /*
+     * When no repository is set for a settings class, the following repository
+     * will be used for loading and saving settings.
+     */
+    'default_repository' =&gt; 'database',
+
+    /*
+     * Settings will be stored and loaded from these repositories.
+     */
+    'repositories' =&gt; [
+        'database' =&gt; [
+            'type' =&gt; Spatie\LaravelSettings\SettingsRepositories\DatabaseSettingsRepository::class,
+            'model' =&gt; null,
+            'table' =&gt; null,
+            'connection' =&gt; null,
+        ],
+        'redis' =&gt; [
+            'type' =&gt; Spatie\LaravelSettings\SettingsRepositories\RedisSettingsRepository::class,
+            'connection' =&gt; null,
+            'prefix' =&gt; null,
+        ],
+    ],
+
+    /*
+     * The encoder and decoder will determine how settings are stored and
+     * retrieved in the database. By default, `json_encode` and `json_decode`
+     * are used.
+     */
+    'encoder' =&gt; null,
+    'decoder' =&gt; null,
+
+    /*
+     * The contents of settings classes can be cached through your application,
+     * settings will be stored within a provided Laravel store and can have an
+     * additional prefix.
+     */
+    'cache' =&gt; [
+        'enabled' =&gt; env('SETTINGS_CACHE_ENABLED', false),
+        'store' =&gt; null,
+        'prefix' =&gt; null,
+    ],
+
+    /*
+     * These global casts will be automatically used whenever a property within
+     * your settings class isn't the default PHP type.
+     */
+    'global_casts' =&gt; [
+        DateTimeInterface::class =&gt; Spatie\LaravelSettings\SettingsCasts\DateTimeInterfaceCast::class,
+        DateTimeZone::class =&gt; Spatie\LaravelSettings\SettingsCasts\DateTimeZoneCast::class,
+     // Spatie\DataTransferObject\DataTransferObject::class =&gt; Spatie\LaravelSettings\SettingsCasts\DtoCast::class,
+        Spatie\LaravelData\Data::class =&gt; Spatie\LaravelSettings\SettingsCasts\DataCast::class,
+    ],
+
+    /*
+     * The package will look for settings in these paths and automatically
+     * register them.
+     */
+    'auto_discover_settings' =&gt; [
+        app_path('Settings'),
+    ],
+
+    /*
+     * Automatically discovered settings classes can be cached, so they don't
+     * need to be searched each time the application boots up.
+     */
+    'discovered_settings_cache_path' =&gt; base_path('bootstrap/cache'),
+];
+</div></section><section class="chapter"><h2 id="preparing-your-page-class" data-toc="preparing-your-page-class">Preparing your page class</h2><p id="-kirt3b_4103">then we can create a setting class using the following command:</p><div class="code-block" data-lang="bash">
+php artisan make:setting SettingName --group=groupName 
+</div><p id="-kirt3b_4105">Now, you will have to add this settings class to the settings.php config file in the settings array, so it can be loaded by Laravel:</p><div class="code-block" data-lang="php">
+/*
+ * Each settings class used in your application must be registered, you can
+ * add them (manually) here.
+ */
+'settings' =&gt; [
+    GeneralSettings::class
+],
+</div><p id="-kirt3b_4107">Each property in a settings class needs a default value that should be set in its migration. You can create a migration as such:</p><div class="code-block" data-lang="bash">
+php artisan make:settings-migration CreateGeneralSettings
+</div><p id="-kirt3b_4109">This command will create a new file in database/settings where you can add the properties and their default values:</p><div class="code-block" data-lang="php">
+use Spatie\LaravelSettings\Migrations\SettingsMigration;
+
+class CreateGeneralSettings extends SettingsMigration
+{
+    public function up(): void
+    {
+        $this-&gt;migrator-&gt;add('general.site_name', 'Spatie');
+        $this-&gt;migrator-&gt;add('general.site_active', true);
+    }
+}
+</div><p id="-kirt3b_4111">We add the properties site_name and site_active here to the general group with values Spatie and true. More on migrations later.</p><p id="-kirt3b_4112">and now we add properties to the settings class:</p><div class="code-block" data-lang="php">
+use Spatie\LaravelSettings\Settings;
+
+class GeneralSettings extends Settings
+{
+    public string $site_name;
+    
+    public bool $site_active;
+    
+    public static function group(): string
+    {
+        return 'general';
+    }
+}
+</div><p id="-kirt3b_4114">We should migrate your database to add the properties:</p><div class="code-block" data-lang="bash">
+php artisan migrate
+</div><p id="-kirt3b_4116">Now, we done for the laravel setting plugin, now we can move to the filament setting page.</p><aside class="prompt" data-type="tip" data-title="" id="-kirt3b_4117"><p>for more information about the setting plugin, you can visit the <a href="https://github.com/spatie/laravel-settings" id="-kirt3b_4118" data-external="true" rel="noopener noreferrer">laravel-settings</a></p></aside></section><section class="chapter"><h2 id="building-a-form" data-toc="building-a-form">Building a form</h2><p id="-kirt3b_4119">now we can create a setting page using the following command:</p><div class="code-block" data-lang="bash">
+php artisan make:filament-settings-page GeneralSettingManage GeneralSettings
+</div><p id="-kirt3b_4121">look at the admin panel, you will find the setting page</p><figure id="-kirt3b_4122"><img alt="截屏2024-03-16 06.17.36.png" src="images/%E6%88%AA%E5%B1%8F2024-03-16_06.17.36.png" title="截屏2024-03-16 06.17.36.png" width="1678" height="636"></figure><p id="-kirt3b_4123">You must define a form schema to interact with your settings class inside the form() method.</p><div class="code-block" data-lang="php">
+TextInput::make('site_name')
+    -&gt;label('Site name')
+    -&gt;required()
+TextInput::make('site_active')
+    -&gt;label('Site active')
+    -&gt;required(),
+</div><figure id="-kirt3b_4125"><img alt="截屏2024-03-16 06.34.31.png" src="images/%E6%88%AA%E5%B1%8F2024-03-16_06.34.31.png" title="截屏2024-03-16 06.34.31.png" width="2604" height="584"></figure><p id="-kirt3b_4126">The name of each form field must correspond with the name of the property on your settings class.</p><p id="-kirt3b_4127">The form will automatically be filled with settings from the database, and saved without any extra work.</p><aside class="prompt" data-type="tip" data-title="" id="-kirt3b_4128"><p>for more information about the filament setting page form builder, you can visit the <a href="https://filamentphp.com/docs/3.x/forms/installation" id="-kirt3b_4129" data-external="true" rel="noopener noreferrer">Form Builder</a></p></aside><section class="chapter"><h3 id="publishing-translations" data-toc="publishing-translations">Publishing translations</h3><p id="-kirt3b_4130">use the following command to publish the translations:</p><div class="code-block" data-lang="bash">
+php artisan vendor:publish --tag=filament-spatie-laravel-settings-plugin-translations
+</div><p id="-kirt3b_4132">for now we finished the setting page, now we can move to the next topic.</p></section></section><div class="last-modified">Last modified: 19 三月 2024</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="permissions.html" class="navigation-links__prev">Permissions</a><a href="media.html" class="navigation-links__next">Media</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.6.6-b224/app.js"></script></body></html>
